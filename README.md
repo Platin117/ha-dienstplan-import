@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="brand/icon.svg" alt="Dienstplan Import" width="120" height="120">
+</p>
+
 # Dienstplan Import — Home Assistant integration
 
 A small Home Assistant **custom integration** (HACS) that imports an `.ics` file
