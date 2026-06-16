@@ -39,22 +39,18 @@ merges intelligently so your history stays intact.
 1. HACS → **⋮ → Custom repositories** → add
    `https://github.com/Platin117/ha-dienstplan-import`, category **Integration**.
 2. Install **Dienstplan Import**, then **restart** Home Assistant.
-3. Add one line to `configuration.yaml` to load it:
-   ```yaml
-   dienstplan_import:
-   ```
-   Optional settings (all have defaults):
-   ```yaml
-   dienstplan_import:
-     # calendar_file: /config/.storage/local_calendar.dienstplan.ics
-     # calendar_entity: calendar.dienstplan
-     # webhook_id: your_random_id   # enables the push endpoint (see below)
-     # local_only: true             # restrict the webhook to the local network
-   ```
-4. Restart (or reload YAML) once more so the config is read.
+3. **Settings → Devices & Services → Add integration → "Dienstplan Import"**.
+4. Fill in the form (all fields have sensible defaults):
+   - **Calendar entity** — your calendar, default `calendar.dienstplan`
+   - **Calendar storage file** — default `/config/.storage/local_calendar.dienstplan.ics`
+   - **Webhook ID** *(optional)* — set this to enable the web app push (see below)
+   - **Webhook reachable from the local network only** — keep on unless you push from the internet
 
-> If your calendar isn't named exactly **Dienstplan**, set `calendar_file` /
-> `calendar_entity` to match (check the real file name under `config/.storage/`).
+No YAML editing required. You can change all of these later via the integration's
+**Configure** button.
+
+> If your calendar isn't named exactly **Dienstplan**, pick the right entity and check the
+> real file name under `config/.storage/` for the storage-file field.
 
 ## Usage A — dashboard upload card (recommended)
 
@@ -71,16 +67,17 @@ logged in.
 
 ## Usage B — push from the web app (optional)
 
-Set `webhook_id` in the config above. The Dienstplan Scanner's **gear → settings** takes
-your Home Assistant URL and the same webhook ID; its "To Home Assistant" button then
-pushes the ICS to `/<your-ha>/api/webhook/<webhook_id>`.
+Set a **Webhook ID** in the integration's setup/options. The Dienstplan Scanner's
+**gear → settings** takes your Home Assistant URL and the same webhook ID; its
+"To Home Assistant" button then pushes the ICS to `/<your-ha>/api/webhook/<webhook_id>`.
 
 The integration accepts both `application/x-www-form-urlencoded` (what the web app sends,
 a CORS "simple request" — no `cors_allowed_origins` needed) and JSON payloads.
 
 **Security:** a webhook bypasses Home Assistant authentication (including 2FA). It is
-protected only by its secret ID and, with `local_only: true`, by a local-network check.
-For an internet-facing Home Assistant behind a reverse proxy, also set:
+protected only by its secret ID and, when "local network only" is enabled, by a
+local-network check. For an internet-facing Home Assistant behind a reverse proxy, also
+set in `configuration.yaml`:
 
 ```yaml
 http:

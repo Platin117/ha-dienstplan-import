@@ -1,0 +1,32 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dienstplan Import",
+        "description": "Lege fest, wie der Dienstplan in deinen Kalender importiert wird.",
+        "data": {
+          "calendar_entity": "Kalender-Entität",
+          "calendar_file": "Kalender-Speicherdatei",
+          "webhook_id": "Webhook-ID (optional, aktiviert den Push aus der Web-App)",
+          "local_only": "Webhook nur aus dem lokalen Netzwerk erreichbar"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Bereits konfiguriert. Nur eine Instanz ist möglich."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Dienstplan-Import-Einstellungen",
+        "data": {
+          "calendar_entity": "Kalender-Entität",
+          "calendar_file": "Kalender-Speicherdatei",
+          "webhook_id": "Webhook-ID (optional, aktiviert den Push aus der Web-App)",
+          "local_only": "Webhook nur aus dem lokalen Netzwerk erreichbar"
+        }
+      }
+    }
+  }
+}

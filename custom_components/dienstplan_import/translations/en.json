@@ -1,0 +1,32 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dienstplan Import",
+        "description": "Configure how the schedule is imported into your calendar.",
+        "data": {
+          "calendar_entity": "Calendar entity",
+          "calendar_file": "Calendar storage file",
+          "webhook_id": "Webhook ID (optional, enables the web app push)",
+          "local_only": "Webhook reachable from the local network only"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Already configured. Only a single instance is allowed."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Dienstplan Import settings",
+        "data": {
+          "calendar_entity": "Calendar entity",
+          "calendar_file": "Calendar storage file",
+          "webhook_id": "Webhook ID (optional, enables the web app push)",
+          "local_only": "Webhook reachable from the local network only"
+        }
+      }
+    }
+  }
+}
