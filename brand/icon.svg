@@ -1,0 +1,26 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- rounded square background -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#bg)"/>
+
+  <!-- calendar body -->
+  <rect x="120" y="136" width="272" height="248" rx="34" fill="#ffffff"/>
+  <!-- calendar header bar -->
+  <rect x="120" y="136" width="272" height="64" rx="34" fill="#e5e7eb"/>
+  <rect x="120" y="168" width="272" height="32" fill="#e5e7eb"/>
+  <!-- rings -->
+  <rect x="170" y="112" width="20" height="56" rx="10" fill="#1f2937"/>
+  <rect x="322" y="112" width="20" height="56" rx="10" fill="#1f2937"/>
+
+  <!-- import arrow (download into calendar) -->
+  <g fill="none" stroke="#3b82f6" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="256" y1="232" x2="256" y2="318"/>
+    <polyline points="212,278 256,322 300,278"/>
+  </g>
+</svg>

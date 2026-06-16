@@ -1,7 +1,7 @@
 {
   "domain": "dienstplan_import",
   "name": "Dienstplan Import",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "config_flow": true,
   "documentation": "https://github.com/Platin117/ha-dienstplan-import",
   "issue_tracker": "https://github.com/Platin117/ha-dienstplan-import/issues",

@@ -5,6 +5,7 @@ from __future__ import annotations
 import voluptuous as vol
 
 from homeassistant import config_entries
+from homeassistant.components import webhook
 from homeassistant.core import callback
 from homeassistant.helpers import selector
 
@@ -19,8 +20,13 @@ from .const import (
 )
 
 
-def _build_schema(defaults: dict) -> vol.Schema:
-    """Form schema, pre-filled with the given defaults."""
+def _build_schema(hass, defaults: dict) -> vol.Schema:
+    """Form schema, pre-filled with the given defaults.
+
+    The webhook ID defaults to a freshly generated random token (so the user
+    doesn't have to invent one). Clear the field to disable the push webhook.
+    """
+    webhook_default = defaults.get(CONF_WEBHOOK_ID) or webhook.async_generate_id()
     return vol.Schema(
         {
             vol.Optional(
@@ -31,10 +37,7 @@ def _build_schema(defaults: dict) -> vol.Schema:
                 CONF_CALENDAR_FILE,
                 default=defaults.get(CONF_CALENDAR_FILE, DEFAULT_CAL_FILE),
             ): selector.TextSelector(),
-            vol.Optional(
-                CONF_WEBHOOK_ID,
-                default=defaults.get(CONF_WEBHOOK_ID, ""),
-            ): selector.TextSelector(),
+            vol.Optional(CONF_WEBHOOK_ID, default=webhook_default): selector.TextSelector(),
             vol.Optional(
                 CONF_LOCAL_ONLY,
                 default=defaults.get(CONF_LOCAL_ONLY, True),
@@ -57,7 +60,9 @@ class DienstplanImportConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 title="Dienstplan Import", data={}, options=user_input
             )
 
-        return self.async_show_form(step_id="user", data_schema=_build_schema({}))
+        return self.async_show_form(
+            step_id="user", data_schema=_build_schema(self.hass, {})
+        )
 
     @staticmethod
     @callback
@@ -66,14 +71,22 @@ class DienstplanImportConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class DienstplanImportOptionsFlow(config_entries.OptionsFlow):
-    """Edit the settings later via the UI."""
+    """Edit the settings later via the UI.
+
+    We store the entry under a private name (``_entry``) on purpose: in modern
+    Home Assistant ``config_entry`` is a read-only property, and assigning to it
+    raises — which made the options dialog fail with a 500. Using our own
+    attribute works across all supported HA versions.
+    """
 
     def __init__(self, config_entry) -> None:
-        self.config_entry = config_entry
+        self._entry = config_entry
 
     async def async_step_init(self, user_input=None):
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
-        current = {**self.config_entry.data, **self.config_entry.options}
-        return self.async_show_form(step_id="init", data_schema=_build_schema(current))
+        current = {**self._entry.data, **self._entry.options}
+        return self.async_show_form(
+            step_id="init", data_schema=_build_schema(self.hass, current)
+        )

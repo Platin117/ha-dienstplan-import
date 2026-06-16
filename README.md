@@ -105,6 +105,13 @@ then insert" operation simple and atomic.
   low-risk.
 - Don't edit the calendar in the HA UI while an import runs (the reload re-reads the file).
 
+## Integration icon
+
+The icon on the *Devices & Services* page comes from the central
+[home-assistant/brands](https://github.com/home-assistant/brands) repo, not from here, so
+a fresh install shows "icon not available". Artwork and submission steps are in
+[`brand/`](brand/).
+
 ## For maintainers — cutting a release
 
 HACS installs from a Git tag/release. After pushing changes:
