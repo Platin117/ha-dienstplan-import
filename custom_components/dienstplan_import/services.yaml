@@ -1,0 +1,29 @@
+import_ics:
+  name: Import Dienstplan
+  description: >-
+    Merge the content of an ICS file into the existing "Dienstplan" calendar.
+    Events within the covered period are replaced; older events are kept.
+  fields:
+    ics_content:
+      name: ICS content
+      description: Full text content of the ICS file.
+      required: true
+      example: "BEGIN:VCALENDAR..."
+      selector:
+        text:
+          multiline: true
+    calendar_file:
+      name: Calendar file
+      description: Path of the local_calendar file (optional, overrides the default).
+      required: false
+      example: /config/.storage/local_calendar.dienstplan.ics
+      selector:
+        text:
+    calendar_entity:
+      name: Calendar entity
+      description: Calendar entity to reload (optional, overrides the default).
+      required: false
+      example: calendar.dienstplan
+      selector:
+        entity:
+          domain: calendar
