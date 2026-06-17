@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="brand/icon.svg" alt="Dienstplan Import" width="120" height="120">
+  <img src="custom_components/dienstplan_import/brand/icon.png" alt="Dienstplan Import" width="120" height="120">
 </p>
 
 # Dienstplan Import — Home Assistant integration
@@ -111,10 +111,15 @@ then insert" operation simple and atomic.
 
 ## Integration icon
 
-The icon on the *Devices & Services* page comes from the central
-[home-assistant/brands](https://github.com/home-assistant/brands) repo, not from here, so
-a fresh install shows "icon not available". Artwork and submission steps are in
-[`brand/`](brand/).
+The icon is **bundled with the integration** in
+[`custom_components/dienstplan_import/brand/`](custom_components/dienstplan_import/brand/)
+(`icon.png`, `icon@2x.png`). Home Assistant **2026.3+** serves these through its local
+brands proxy and prefers them over the CDN — so no submission to the
+[home-assistant/brands](https://github.com/home-assistant/brands) repo is required, and the
+icon shows up after install. `icon.svg` is the editable source.
+
+> On Home Assistant **older than 2026.3**, local brand images aren't supported; there the
+> icon only appears after a PR to the brands repo. Newer installs work out of the box.
 
 ## For maintainers — cutting a release
 
